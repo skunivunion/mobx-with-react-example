@@ -3,14 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { Provider } from 'mobx-react';
-import CounterStore from './stores/CounterStore';
+import { Provider } from 'mobx-react'; // MobX 에서 사용하는 Provider
+import RootStore from './stores';
 
-// 스토어 인스턴스 생성
-const counterStore = new CounterStore();
+const root = new RootStore(); // *** 루트 스토어 생성
 
 ReactDOM.render(
-  <Provider counterStore={counterStore}>
+  <Provider {...root}>
     <App />
   </Provider>,
   document.getElementById('root')

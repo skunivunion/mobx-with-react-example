@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import Counter from './components/Counter';
+import SuperMarket from './components/SuperMarket';
 
 function App() {
   return (
     <div>
       <Counter />
+      <hr />
+      <SuperMarket />
     </div>
   );
 }

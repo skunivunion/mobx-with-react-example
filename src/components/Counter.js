@@ -6,12 +6,12 @@ import { observer, inject } from 'mobx-react';
 
 // inject('스토어이름') 을 하시면
 // 컴포넌트에서 해당 스토어를 props 로 전달받아서 사용 할 수 있다.
-@inject('counterStore')
+@inject('counter')
 // // 스토어의 특정 값이나 함수만 넣어주고 싶다면...
 // @inject(stores => ({
-//     number: stores.counterStore.number,
-//     increase: stores.counterStore.increase,
-//     decrease: stores.counterStore.decrease,
+//     number: stores.counter.number,
+//     increase: stores.counter.increase,
+//     decrease: stores.counter.decrease,
 // }))
 @observer
 class Counter extends Component {
@@ -29,14 +29,14 @@ class Counter extends Component {
     // }
 
     render() {
-        const { counterStore } = this.props;
+        const { counter } = this.props;
         // // 스토어의 특정 값이나 함수만 넣어주고 싶다면...
         // const { number, increase, decrease } = this.props;
         return (
             <div>
-                <h1>{counterStore.number}</h1>
-                <button onClick={counterStore.increase}>+1</button>
-                <button onClick={counterStore.decrease}>-1</button>
+                <h1>{counter.number}</h1>
+                <button onClick={counter.increase}>+1</button>
+                <button onClick={counter.decrease}>-1</button>
                 {/* 스토어의 특정 값이나 함수만 넣어주고 싶다면...
                 <button onClick={increase}>+1</button>
                 <button onClick={decrease}>-1</button> */}
