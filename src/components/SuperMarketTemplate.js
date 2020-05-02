@@ -3,6 +3,7 @@ import '../css/SuperMarketTemplate.css';
 
 // SuperMarketTemplate 는 그냥 템플릿 형태의 컴포넌트로서
 // 한쪽에는 상품을, 한쪽에는 장바구니를 props 로 받아와서 보여줍니다.
+// '아이템 리스트', '장바구니 리스트', '총금액'을 props로 받아 표시한다.
 const SuperMarketTemplate = ({ items, basket, total }) => {
     return (
         <div className="SuperMarketTemplate">

@@ -1,44 +1,53 @@
 import { observable, action, computed } from 'mobx';
 
+// MarketStore에 @observable 값과 @action 함수 정의
 export default class MarketStore {
+  // observable ==> 선택한 품목
   @observable selectedItems = [];
 
-  // **** 추가됨
+  // MarketStore의 루트 스토어를 설정
   constructor(root) {
       this.root = root;
   }
 
+  // 장바구니에 넣기
   @action
-  put = (name, price) => {
+  put = (name, price) => {  // 아이템(품목)명과 가격을 파라미터로 받는다.
+    // counter(this.root.counter === CounterStore)로부터 현재 counter값을 가져온다.
     const { number } = this.root.counter;
-    // 존재하는지 찾고
+    // 현재 장바구니에 담긴 아이템인가?
     const exists = this.selectedItems.find(item => item.name === name);
     if (!exists) {
-      // 존재하지 않는다면 새로 집어넣습니다.
+      // 장바구니에 없는 아이템이면 새로 집어넣습니다. (아이템 객체)
       this.selectedItems.push({
-        name,
-        price,
+        name,   // === name: name,
+        price,  // === price: price,
         count: number,
       });
       return;
     }
-    // 존재 한다면 count 값만 올립니다.
+    // 장바구니에 존재 한다면 count 값만 올립니다.
     exists.count += number;
   };
 
+  // 갖다 놓기 (장바구니에서 하나씩 뺀다.)
   @action
   take = name => {
+    // 갖다 놓을 아이템(객체) 정보 획득 (장바구니에 담긴 아이템 '갖다놓기' 클릭)
     const itemToTake = this.selectedItems.find(item => item.name === name);
-    itemToTake.count--;
+    // 하나 감소
+    itemToTake.count--;    
     if (itemToTake.count === 0) {
-      // 갯수가 0 이면
-      this.selectedItems.remove(itemToTake); // 배열에서 제거처리합니다.
+      // 갯수가 0 이면 배열에서 제거처리합니다.
+      this.selectedItems.remove(itemToTake);
     }
   };
 
+  // 합계 계산 : put 함수 또는 take 함수 실행 시 마다 호출한다.
   @computed
   get total() {
     console.log('총합 계산...');
+    // 장바구니 아이템(this.selectedItems[]) 합계 계산
     return this.selectedItems.reduce((previous, current) => {
       return previous + current.price * current.count;
     }, 0);
