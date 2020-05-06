@@ -29,7 +29,7 @@ const ShopItemList = ({ onPut }) => {
   // 아이템 리스트에서 각 이이템 정보를 복사한 값, key는 아이템 이름,
   // onPut 함수를 자식 컴포넌트에 넘겨 표시하도록 한다.
   const itemList = items.map(item => (  // 아이템 리스트로 생성
-    <ShopItem {...item} key={item.name} onPut={onPut} />  // {...item} : 복사한 아이템 객체
+    <ShopItem {...item} key={item.name} onPut={onPut} />  // {...item} : 복사한 아이템 객체 {name, price}
   ));
 
   // 리스트를 렌더링할 땐, 컴포넌트에 리스트 관련 데이터만 props 로 넣는다.
@@ -39,5 +39,20 @@ const ShopItemList = ({ onPut }) => {
 // **** inject, observer 적용
 // market 스토어 인젝트
 export default inject(({ market }) => ({
-    onPut: market.put,  // onPut() == market.put()
+    onPut: market.put,  // // market 스토어에서 put() 함수만 props 로 전달받아서 사용 (onPut())
 }))(observer(ShopItemList));
+
+
+// @inject('market')  // market 스토어를 props 로 전달받아서 사용
+// @observable
+// class ShopItem extends Component {
+//   retnder () {
+//     const { onPut } = this.props; // market 스토어에서 onPut 함수만 props 로 전달받아서 사용
+//     const itemList = items.map(item => (  // 아이템 리스트로 생성
+//       <ShopItem {...item} key={item.name} onPut={onPut} />  // {...item} : 복사한 아이템 객체
+//     ));  
+//     // 리스트를 렌더링할 땐, 컴포넌트에 리스트 관련 데이터만 props 로 넣는다.
+//     return <div>{itemList}</div>;
+//   }
+// }
+// export default ShopItem;
